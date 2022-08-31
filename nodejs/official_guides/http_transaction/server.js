@@ -1,17 +1,34 @@
 // const http = require('http');
-import { http } from 'node:http';
+import * as http from 'node:http';
+
+const PORT = 3000;
  
 // server is an EventEmitter
 // const server = http.createServer();
 // server.on('request', (request, response) => {
 // });
 
-const server = http.createServer((request, response) => {
+http.createServer((request, response) => {
   const { method, url, headers } = request;
-  console.dir(method);
-  console.dir(url);
-  console.dir(headers);
-});
+  let body = [];
 
-server.listen(3000);
+  request.on('error', (err) => {
+    console.error(err);
+  }).on('data', (chunk) => {
+    body.push(chunk);
+  }).on('end', () => {
+    body = Buffer.concat(body).toString();
+    response.setHeader('Content-Type', 'application/json');
+    response.statusCode = 200;
+
+    const responseBody = { headers, method, url, body };
+    response.end(JSON.stringify(responseBody));
+  });
+
+
+
+
+}).listen(PORT);
+
+console.log(`Http Server is running on port ${PORT}...`);
 
