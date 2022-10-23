@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "172.20.0.2",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "postgreSQL14.2-docker",
+      "database": "demo",
+      "username": "vatagin",
+      "password": "vat123"
+    }
+  ]
+}
